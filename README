@@ -1,0 +1,28 @@
+CachedAutocompleter
+===================
+
+Generates auto-completed text field, with choices cached in JSON.
+
+
+Example
+=======
+
+This code:
+
+  default_value = "Christopher Andrews"
+  autocompleter = CachedAutocompleter.new( Author.all.map(&:name) )
+  autocompleter.to_field("document[authors_names][]", default_value, {:size => 25})
+
+Generates:
+
+  <input id="document_authors_names" name="document[authors_names][]" size="25" type="text" value="Christopher Andrews" /> 
+  <div class="auto_complete" id="auto_complete_for_document_authors_names"></div>
+  <script type="text/javascript">
+  //<![CDATA[
+      var choices_for_document_authors_names = ["Ayerdhal ", "Dafydd ab Hugh  ", "Edwin Abbott", "Christopher Andrews"];
+      new Autocompleter.Local('document_authors_names', 'auto_complete_for_document_authors_names', choices_for_document_authors_names, {minChars: 2});
+  //]]>
+  </script>
+
+
+Copyright (c) 2009 Dima Sabanin, released under the MIT license
